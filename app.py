@@ -9,3 +9,13 @@ class FlaskApp():
         @self.app.route("/")
         def index():
             return render_template("index.html")
+        
+
+    def run(self, **kwargs):
+        self.app.run(**kwargs)
+
+
+app = FlaskApp().app
+
+if __name__ == "__main__":
+    app.run(debug=True)
