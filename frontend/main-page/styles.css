@@ -14,7 +14,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;}
+    height: 80vh;
+    flex-direction: column;
+}
 .nav{
     position: flex;
     top: 0;
@@ -72,5 +74,5 @@ body {
 .nav-button-container .nav-btn:hover {
     background-color: #ffffff;
     color: transparent;
-    transform: scale(0.3);
+    transform: scale(1.05);
 }
