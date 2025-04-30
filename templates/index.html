@@ -4,13 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/index.css">
     <title>InspirePay</title>
-    <style>
-        .customer-box {
-            display: none;
-        }
-    </style>
+
 </head>
 <body>
     <nav class ="nav">
@@ -65,21 +61,7 @@
     <button class="back-btn" id="backBtn">Back</button>
     </div>
 </div>
-<script>
-    const customerBtn = document.getElementById('customerbtn');
-    const wrapper = document.querySelector('.wrapper');
-    const customerBox = document.getElementById('customerBox');
-    const backBtn = document.getElementById('backBtn');
 
-    customerBtn.addEventListener('click', () => {
-      wrapper.style.display = 'none'; 
-      customerBox.style.display = 'block'; 
-    });
-
-    backBtn.addEventListener('click', () => {
-      customerBox.style.display = 'none'; 
-      wrapper.style.display = 'block'; 
-    });
-  </script>
+<script src="/static/index.js"></script>
 </body>
 </html>
