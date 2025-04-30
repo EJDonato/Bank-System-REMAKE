@@ -51,7 +51,6 @@ def deposit(deposit_amount):
     query = "UPDATE current_customer SET starting_balance = %s"
     my_cursor.execute(query, (deposit_amount,))
     db.commit()
-
     return True
 
 def update_customer_list_from_current():    # pang update from CURRENT CUSTOMER to CUSTOMER LIST kapag nag withdraw, deposit, change pin, or na lock
