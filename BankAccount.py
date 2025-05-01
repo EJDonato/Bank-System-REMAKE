@@ -14,7 +14,7 @@ class CreateBankAccount:
 
     # to check if email is already existing
     def account_existing(self):
-        email_not_existing = False #need sql query
+        email_not_existing = is_email_exist(self.email) #sql query
         if email_not_existing is False:
             return False #email is already existing
         else:
@@ -34,6 +34,7 @@ class CreateBankAccount:
                         self.password, self.account_number, self.pin, self.monthly_salary,
                         self.initial_balance, self.is_locked, self.status)
         insert_account_info(account_info) #sql query
+        join_login_list() #sql query
 
 
 
