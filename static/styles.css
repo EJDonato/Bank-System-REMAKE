@@ -72,7 +72,7 @@ body {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .nav-button-container .nav-btn:hover {
-    background-color: #ffffff;
+    background-color: transparent;
     color: transparent;
     transform: scale(1.05);
 }
