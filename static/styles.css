@@ -74,7 +74,7 @@ body {
 .nav-button-container .nav-btn:hover {
     background-color: transparent;
     color: transparent;
-    transform: scale(1.0);
+    transform: 1;
 }
 .top h2{
     color: #000;
@@ -103,15 +103,15 @@ body {
     border-radius: 5px;
     margin: 5px 0;
 }
-.login-box .submit {
+.submit {
     width: 300px; 
     height: 40px;
     padding: 10px;
     font-size: 16px;
     margin: 5px 0;
-    color: #ffffff;
-    background-color: #000000;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    background-color: black;
+    color: white;
 }
