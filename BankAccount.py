@@ -1,10 +1,7 @@
-import random
-
 class CreateBankAccount:
-    def __init__(self,email,password,repassword,first_name,last_name, birthdate,pin, monthly_salary, initial_balance):
+    def __init__(self,email,password,first_name,last_name, birthdate, pin, monthly_salary, initial_balance):
         self.email = email
         self.password = password
-        self.repassword = repassword
         self.firstname = first_name
         self.lastname = last_name
         self.birthdate = birthdate #i want the format to be in MM-DD-YYYY
@@ -17,36 +14,30 @@ class CreateBankAccount:
 
     # to check if email is already existing
     def account_existing(self):
-        email_existing = None
-        if email_existing is not None:
-            return False
+        email_not_existing = False #need sql query
+        if email_not_existing is False:
+            return False #email is already existing
+        else:
+            return True #hindi pa nag-eexist email
 
-    # to check if the entered password and re-entered password match
-    def match_password(self):
-        if self.password != self.repassword:
-            return False
-
-    #to check if pin is 6 digits
-    def check_pin(self):
-        self.pin = str(self.pin)
-        if len(self.pin) != 6:
-            return False
-
-    #papalitan need id index hay
+    # generate a unique account number using bday and id index
     def generate_account_number(self):
-        self.birthdate_str = self.birthdate.replace("-", "")
-        length = len(self.birthdate_str)
-        self.account_number = "".join(random.sample(self.birthdate_str, k=length))
-        while self.account_number in db: #para ma-check if may kaparehong accnum
-            self.account_number = "".join(random.sample(self.birthdate_str, k=length))
-        # # if wala yung na-generate na acc num sa db iistore
+        id_index = "1" #need sql query
+        self.birthdate_str = self.birthdate.split("-")
+        month = self.birthdate_str[0]
+        day = self.birthdate_str[1]
+        year = (self.birthdate_str[2])[-2:]
+        self.account_number = year + id_index + day + month + id_index
 
-    # for db
     def insert_account_info(self):
-        account_info = (self.firstname, self.lastname, self.birthdate, self.password, self.account_number, self.pin, self.monthly_salary, self.initial_balance, self.is_locked, self.status)
-        # sql inquiry para ma-insert 'to tapos object daw pala hindi tuple so papalitan din toh,,, xd
+        account_info = (self.firstname, self.lastname, self.birthdate, self.email,
+                        self.password, self.account_number, self.pin, self.monthly_salary,
+                        self.initial_balance, self.is_locked, self.status)
+        insert_account_info(account_info) #sql query
 
 
 
-
-
+a = CreateBankAccount("airamjeanr@gmail.com", "airamjean", "Airam Jean", "Reglos",
+                      "03-11-2005", "123456", 50000, 10000)
+a.generate_account_number()
+a.insert_account_info()

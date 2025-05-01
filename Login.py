@@ -3,17 +3,14 @@ class Login:
         self.email = email
         self.password = password
 
-#will check kasi sabi ni amran siya na raw magchecheck???
     def check_account(self):
-        email_db = "airamjeanr@gmail.com" #email from database
-        password_db = "airamjean" #email from dsatabase
-        status_db = "Pending"
+        login = (self.email, self.password)
+        login_result = verify_login_credentials(login)
+        #either False, Pending, Active ang irereturm
 
-        if email_db == self.email and password_db == self.password:
-            if status_db == "Pending":
-                return "Pending"
-            else:
-                return "Active"
+        if login_result == "Active":
+            return "Active"
+        elif login_result == "Pending":
+            return "Pending"
         else:
-            return "Not matched"
-
+            return False
