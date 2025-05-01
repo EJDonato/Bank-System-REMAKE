@@ -38,7 +38,7 @@ class CreateBankAccount:
 
 
 
-a = CreateBankAccount("airamjeanr@gmail.com", "airamjean", "Airam Jean", "Reglos",
-                      "03-11-2005", "123456", 50000, 10000)
-a.generate_account_number()
-a.insert_account_info()
+# a = CreateBankAccount("airamjeanr@gmail.com", "airamjean", "Airam Jean", "Reglos",
+#                       "03-11-2005", "123456", 50000, 10000)
+# a.generate_account_number()
+# a.insert_account_info()
