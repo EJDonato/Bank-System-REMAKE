@@ -69,7 +69,10 @@ body {
     font-weight: bold;
     height: 70px;
     width: 200px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.nav-btn:active{
+    background-color: #978c8c;
+    transition: 0.3s;
 }
 
 .top h2{
@@ -110,4 +113,8 @@ body {
     cursor: pointer;
     background-color: black;
     color: white;
+}
+.submit:active{
+    background-color: #978c8c;
+    transition: 0.3s;
 }
