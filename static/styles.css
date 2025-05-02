@@ -10,7 +10,7 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
-.wrapper {
+.wrapper .nav-button-container{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,3 +118,4 @@ body {
     background-color: #978c8c;
     transition: 0.3s;
 }
+
