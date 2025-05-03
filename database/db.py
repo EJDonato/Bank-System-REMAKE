@@ -10,41 +10,32 @@ db = mysql.connector.connect(
 
 my_cursor = db.cursor()
 
-def insert_account_info(new_account, connection):
+def insert_account_info(new_account):
     email = new_account[3]
 
-    if is_email_exists(email, connection):
-        return False  # merong nang email
+    if is_email_exists(email):
+        return False  # Returns False if email does exist.
 
     query = '''
-            INSERT INTO customer_list(first_name, last_name, birthdate, email, password, account_number, \
+            INSERT INTO customer_list(first_name, last_name, birthdate, email, password, account_number,
                                       bank_account_pin, monthly_salary, starting_balance, is_locked)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
 
-    cursor = connection.cursor()
-    cursor.execute(query, new_account)
-    connection.commit()
-    cursor.close()
+    my_cursor.execute(query, new_account)
+    db.commit()
 
-    return True  # wala pang email
+    return True  # Returns True if email does not exist yet.
 
-def is_email_exists(email, connection):
+def is_email_exists(email):
     query = '''
             SELECT COUNT(*)
             FROM customer_list
             WHERE email = %s
             '''
-    cursor = connection.cursor()
-    cursor.execute(query, (email,))
-    count = cursor.fetchone()[0]
-    cursor.close()
+    my_cursor.execute(query, (email,))
+    count = my_cursor.fetchone()[0]
 
     return count > 0
-
-#
-# new_account = ("Amran", "Gabarda", date(1989, 8, 8), "asdghg@gmail.com", "hakdog", "45877678", "437268", 6969.01, 100.03, True)
-# insert_account_info(new_account)
-
 
 def join_login_list():  # ILALAGAY YUNG EMAIL, PASSWORD SA TABLE CUSTOMER LOGIN SO AFTER MAGCREATE NG ACCOUNT NEED TO I RUN
     query = '''
@@ -60,11 +51,6 @@ def verify_login_credentials(email, password):
     result = my_cursor.fetchone()   #kunin isa lang (yung nakuhang match)
     return result is not None
 
-# # emailq = "amrangabarda2@gmail.com"
-# # passwordq = "h4kdog"
-# #
-# # verify_login_credentials(emailq, passwordq)
-#
 def authenticate(bank_account_pin):
     query = "SELECT * FROM current_customer WHERE bank_account_pin = %s"
     my_cursor.execute(query, (bank_account_pin,))
