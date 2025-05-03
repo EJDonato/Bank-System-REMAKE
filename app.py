@@ -1,19 +1,15 @@
 from flask import Flask, jsonify, render_template, request
-
+from blueprints.customer_routes import customer
 
 class FlaskApp():
     def __init__(self):
         
         self.app = Flask(__name__)
+        self.app.register_blueprint(customer)
 
         @self.app.route("/")
         def index():
             return render_template("index.html")
-        
-
-        @self.app.route("/homepage/<user>")
-        def homepage(user):
-            return render_template("home_page.html")
         
 
     def run(self, **kwargs):
