@@ -96,7 +96,9 @@ body {
     background: transparent;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    margin: 100px;
+    width: 400px; 
+    padding: 40px 30px;
+    margin: 50px auto;
 }
 .two-forms .input-field {
     width: 300px; 
@@ -120,7 +122,7 @@ body {
     color: white;
 }
 .login-box .submit:hover{
-    background: linear-gradient(135deg, #444, #555);
+        background: linear-gradient(135deg, #444, #555);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     transform: scale(1.03);
 }
