@@ -119,7 +119,8 @@ body {
     background-color: black;
     color: white;
 }
-.login-box .submit:active{
-    background-color: #978c8c;
-    transition: 0.3s;
+.login-box .submit:hover{
+    background: linear-gradient(135deg, #444, #555);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transform: scale(1.03);
 }
