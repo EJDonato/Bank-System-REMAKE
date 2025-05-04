@@ -11,6 +11,10 @@ class FlaskApp():
         def index():
             return render_template("index.html")
         
+        @self.app.route("/sign_up")
+        def sign_up():
+            return render_template("sign_up.html")
+        
 
     def run(self, **kwargs):
         self.app.run(**kwargs)
