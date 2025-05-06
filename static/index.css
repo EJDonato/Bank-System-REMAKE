@@ -80,3 +80,49 @@ body {
     background-color: grey;
     transform: scale(1.05);
 }
+.top h2{
+    color: #000;
+    font-size: 30px;
+    font-weight: 900;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    background: transparent;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 400px; 
+    padding: 40px 30px;
+    margin: 50px auto;
+}
+.two-forms .input-field {
+    width: 300px; 
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+.login-box .submit{
+    width: 300px; 
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+.login-box .submit:hover{
+        background: linear-gradient(135deg, #444, #555);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transform: scale(1.03);
+}

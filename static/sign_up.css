@@ -11,7 +11,6 @@ body {
     background-attachment: fixed;
 }
 
-
 header{
     position: flex;
     top: 0;
@@ -23,20 +22,24 @@ header{
     background: linear-gradient(rgba(39, 39, 39, 0.6), transparent);
     z-index: 1;
 }
+
 .logo {
     font-size: 30px;
     color: #000;
     font-weight: 900;
     margin-left: 3%;
 }
+
 .nav ul{
     display:  flex;
 }
+
 .nav ul li{
     list-style-type: none;
     margin: 0 20px;
     text-decoration: none;
 }
+
 .nav ul li .link{
     text-decoration: none;
     color: #000;
@@ -51,22 +54,97 @@ header{
 h2 {
     display: flex;
     justify-content: center;
+    margin: 20px 0;
 }
 
 
 .wrapper {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
+.signup-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box; 
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.forms {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.forms label {
+    display: block;
+    margin-top: 0;
+    font-size: 15px;
+    color: #000000aa;
+}
+.forms input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #000000aa;
+}
+
+.submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    color:#ffffff;
+    background-color: black;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+.submit:hover{
+    background: linear-gradient(135deg, #444, #555);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transform: scale(1.03);
+}
+/*
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    background: transparent;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 400px; 
+    padding: 40px 30px;
+    margin: 50px auto;
+
+
 .sign_up_form {
-    width: 70%;
     display: flex;
     flex-direction: column;
-
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 16px;
-    padding: 24px;
+    padding: 24px;    
 }
 
 .columns {
@@ -83,4 +161,27 @@ h2 {
 .inputs {
     display: flex;
     justify-content: space-around;  
+}
+
+.signup-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: black;
+    color:#ffffff;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.signup-box:hover{
+    background: linear-gradient(135deg, #444, #555);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transform: scale(1.03);
 }
