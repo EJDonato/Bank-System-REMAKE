@@ -13,13 +13,13 @@ header, .nav {
     height: 100px;
     background: linear-gradient(rgba(39, 39, 39, 0.6), transparent);
     z-index: 1;
-    padding: 0 3%;
 }
 
 .logo, .nav-logo {
     font-size: 30px;
     color: #000;
     font-weight: 900;
+    margin-left: 3%;
 }
 
 .nav ul, .nav-menu ul {
