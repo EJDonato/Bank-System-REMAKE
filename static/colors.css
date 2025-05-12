@@ -1,0 +1,9 @@
+
+:buttons{
+    --buttons : #000000;
+}
+:buttons:hover{
+    background: linear-gradient(135deg, #444, #555);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    transform: scale(1.03)
+}
