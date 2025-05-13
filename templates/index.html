@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <title>InspirePay</title>
+{% extends "base.html" %}
 
-</head>
-<body>
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block title %}InspirePay{% endblock %}
+
+
+{% block content %}
     <header class="nav">
         <div class="logo">
             <p>InspirePay</p>
@@ -59,7 +60,8 @@
             </div>
     </div>
 </div>
+{% endblock %}
 
+{% block script %}
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-</body>
-</html>
+{% endblock%}
