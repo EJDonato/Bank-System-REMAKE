@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/use_atm.css') }}">
-    <title>ATM</title>
-</head>
-<body>
-    <header>
+{% extends "base.html" %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/use_atm.css') }}">
+{% endblock %}
+
+{% block title %}ATM{% endblock %}
+
+{% block content %}
+<header>
         <div class="logo">
             <p>InspirePay</p>
         </div>
@@ -56,6 +56,10 @@
     </div>
 
     </main>
-    <script src="{{ url_for('static', filename='js/use_atm.js') }}"></script>
-</body>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='js/use_atm.js') }}"></script>
+{% endblock %}
+    
 

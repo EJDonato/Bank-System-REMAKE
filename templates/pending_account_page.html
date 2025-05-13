@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pending Approval</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/pending_account_page.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pending_account_page.css') }}">
+{% endblock %}
+
+{% block title %}Pending Approval{% endblock %}
+    
+
+{% block content %}
     <header class="nav">
         <div class="logo">
             <p>InspirePay</p>
@@ -30,7 +30,4 @@
             <button>Log Out</button>
         </div>
     </div>
-
-
-</body>
-</html>
+{% endblock %}
