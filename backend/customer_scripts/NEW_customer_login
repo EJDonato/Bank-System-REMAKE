@@ -1,0 +1,13 @@
+class Login:
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
+
+    def check_account(self):
+        ## SQL QUERY ##
+        check = verify_login_credentials(self.email, self.password)
+
+        if check is False:
+            return False  # EMAIL AND PASSWORD MISMATCHED
+        else:
+            print(check)  # ACCOUNT DETAILS
