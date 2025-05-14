@@ -32,10 +32,15 @@ def insert_account_info(gen_info, login_info):
         return False  # Insertion successful. No Duplicates
 
     except IntegrityError as e:
-        if e:
-            return True   # Insertion unsuccessful. Duplicates exists
+        error_message = str(e)
+
+        if "Duplicate entry" in error_message:
+            if "user_login.email" in error_message:
+                return "Email DUPE"  # Email is the duplicate
+            elif "user_login.account_number" in error_message:
+                return "Account number DUPE"  # Account number is the duplicate
         else:
-            raise  # Raise other error if not IntegrityError
+            raise  # Raise other errors if not IntegrityError
 
 def user_login():
     query = '''
