@@ -1,0 +1,15 @@
+from customer_signup import CreateBankAccount
+from customer_login import Login
+
+class CustomerFacade:
+    def __init__(self):
+        self.signup = CreateBankAccount()
+        self.login_here = Login()
+
+    def create_account(self, email, password, first_name, last_name, birthdate, pin, monthly_salary, initial_balance):
+        self.signup.create_account(email, password, first_name, last_name, birthdate, pin, monthly_salary, initial_balance)
+        self.signup.insert_account_info()
+
+    def login(self, email, password):
+        self.login_here.login(email,password)
+        self.login_here.check_account()
