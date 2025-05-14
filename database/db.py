@@ -90,4 +90,3 @@ def customer_list():
     my_cursor.execute(query)
     db.commit()
 
-
