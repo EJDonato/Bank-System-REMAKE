@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/sign_up.css">
-    <title>Home Page</title>
-</head>
-<body>
-    <header>
+{% extends "base.html" %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sign_up.css') }}">
+{% endblock %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+    <header class="nav">
         <div class="logo">
             <p>InspirePay</p>
         </div>
-        <div class="nav">
+        <div class="nav-menu">
             <ul>
-                <li><a href="#link" class="link">About</a></li>
-                <li><a href="#link" class="link">Services</a></li>
-                <li><a href="#link" class="link">Contact</a></li>
-                <li><a href="#link" class="link home">Home</a></li>
+                <li><a href="#about" class="link">About</a></li>
+                <li><a href="#services" class="link">Services</a></li>
+                <li><a href="#contact" class="link">Contact</a></li>
             </ul>
         </div>
     </header>
@@ -29,11 +28,11 @@
                     <div class="forms">
                         <div class="form-field">
                             <label for="first-name">First Name</label>
-                            <input type="text" id="first-name">
+                            <input type="text" id="first-name" placeholder="First Name">
                         </div>
                         <div class="form-field">
                             <label for="last-name">Last Name</label>
-                            <input type="text" id="last-name">
+                            <input type="text" id="last-name" placeholder="Last Name">
                         </div>
                         <div class="form-field">
                             <label for="bdate">Birthdate</label>
@@ -41,15 +40,15 @@
                         </div>
                         <div class="form-field">
                             <label for="email">Email</label>
-                            <input type="text" id="email">
+                            <input type="text" id="email" placeholder="email@gmail.com">
                         </div>
                         <div class="form-field">
                             <label for="password">Password</label>
-                            <input type="password" id="password">
+                            <input type="password" id="password" placeholder="Password">
                         </div>
                         <div class="form-field">
                             <label for="re-password">Re-enter Password</label>
-                            <input type="password" id="re-password">
+                            <input type="password" id="re-password" placeholder="Re-enter Password">
                         </div>
                         <div class="form-field">
                             <label for="monthly_salary">Monthly Salary</label>
@@ -71,6 +70,4 @@
             </div>
         </div>
     </main>
-
-</body>
-</html>
+{% endblock %}

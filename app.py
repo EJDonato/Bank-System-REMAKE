@@ -11,6 +11,14 @@ class FlaskApp():
         def index():
             return render_template("index.html")
         
+        @self.app.route("/sign_up")
+        def sign_up():
+            return render_template("sign_up.html")
+        
+        @self.app.route("/pending_account")
+        def pending_account():
+            return render_template("pending_account_page.html")
+        
 
     def run(self, **kwargs):
         self.app.run(**kwargs)

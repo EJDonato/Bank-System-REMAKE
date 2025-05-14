@@ -1,9 +1,42 @@
-body {
-    margin: 0;
-    font-family: 'Lucida Console', monospace;
-    background: url("/static/images/frontpage-bg.jpg") no-repeat center center fixed;
-    background-size: cover;
+
+header, .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(rgba(39, 39, 39, 0.6), transparent);
+    z-index: 1;
 }
+
+.logo, .nav-logo {
+    font-size: 30px;
+    color: #000;
+    font-weight: 900;
+    margin-left: 3%;
+}
+
+.nav ul, .nav-menu ul {
+    display: flex;
+    list-style: none;
+}
+
+.nav ul li, .nav-menu ul li {
+    margin: 0 20px;
+}
+
+.link {
+    text-decoration: none;
+    color: #000;
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 15px;
+}
+
+.link:hover {
+    border-bottom: 2px solid #000;
+}
+
 
 .container {
     max-width: 450px;
@@ -27,12 +60,6 @@ h1 {
     font-weight: 700;
     font-size: 2.25rem;
     margin-bottom: 15px;
-}
-
-p {
-    font-size: 1.125rem;
-    margin-bottom: 30px;
-    line-height: 1.5;
 }
 
 .loader {
@@ -62,7 +89,7 @@ p {
     padding: 10px 20px;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(135deg, #333, #444);
+    background: #000000;
     color: #fff;
     font-size: 1rem;
     cursor: pointer;
@@ -79,49 +106,4 @@ p {
 
 .buttons button:active {
     transform: scale(0.97);
-}
-
-.nav {
-    padding: 20px 40px;
-    position: relative;
-    top: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: 100px;
-    line-height: 100px;
-    background: linear-gradient(rgba(39, 39, 39, 0.6), transparent);
-    z-index: 1;
-}
-
-.nav-logo p {
-    font-size: 30px;
-    color: #000;
-    font-weight: 900;
-    margin: 0;
-}
-
-.nav-menu ul {
-    display: flex;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-menu ul li {
-    list-style-type: none;
-    margin: 0 20px;
-}
-
-.nav-menu ul li .link {
-    color: #000;
-    text-decoration: none;
-    font-size: 20px;
-    padding-bottom: 15px;
-    font-weight: 500;
-}
-
-.nav-menu ul li .link:hover,
-.nav-menu ul li .home {
-    border-bottom: 2px solid #000000;
 }

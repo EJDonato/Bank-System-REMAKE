@@ -1,26 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/index.css">
-    <title>InspirePay</title>
+{% extends "base.html" %}
 
-</head>
-<body>
-    <nav class ="nav">
-        <div class="nav-logo">
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block title %}InspirePay{% endblock %}
+
+
+{% block content %}
+    <header class="nav">
+        <div class="logo">
             <p>InspirePay</p>
         </div>
         <div class="nav-menu">
             <ul>
-                <li><a href="#link" class="link">About</a></li>
-                <li><a href="#link" class="link">Services</a></li>
-                <li><a href="#link" class="link">Contact</a></li>
-                <li><a href="#link" class="link home">Home</a></li>
+                <li><a href="#about" class="link">About</a></li>
+                <li><a href="#services" class="link">Services</a></li>
+                <li><a href="#contact" class="link">Contact</a></li>
+                <li><a href="#home" class="link">Home</a></li>
             </ul>
         </div>
-    </nav>
+    </header>
+    
+    
     <div class="wrapper">
         <div class="nav-button-container">
             <button class="nav-btn" id="customerbtn">Customer</button>
@@ -57,7 +60,8 @@
             </div>
     </div>
 </div>
+{% endblock %}
 
-<script src="/static/index.js"></script>
-</body>
-</html>
+{% block script %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock%}
