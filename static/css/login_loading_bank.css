@@ -1,9 +1,3 @@
-body {
-    margin: 0;
-    font-family: 'Lucida Console', monospace;
-    background: url("/static/images/frontpage-bg.jpg") no-repeat center center fixed;
-    background-size: cover;
-}
 
 .container {
     max-width: 450px;

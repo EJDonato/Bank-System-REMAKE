@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
-    <title>Home Page</title>
-</head>
-<body>
+
+{% extends "base.html" %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
+{% endblock %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
     <header>
         <div class="logo">
             <p>InspirePay</p>
@@ -47,6 +48,4 @@
         </div>
         
     </main>
-    
-</body>
-</html>
+{% endblock %}
