@@ -13,6 +13,7 @@ def homepage(user):
 def deposit(user):
     return render_template("deposit.html")
 
+
 @customer.route("/homepage/<user>/use_atm")
 def use_atm(user):
     return render_template("use_atm.html")

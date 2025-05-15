@@ -41,21 +41,23 @@
                 <h2>Customer</h2>
             </div>
             <div class="two-forms">
+                <input type="text" id="userType" hidden value="">
+
                 <div class="input-box">
-                    <input type="text" class="input-field" placeholder="username@gmail.com">
+                    <input type="text" class="input-field" placeholder="username@gmail.com" id="email">
                 </div>
                 <div class="input-box">
-                    <input type="password" class="input-field" placeholder="Password">
+                    <input type="password" class="input-field" placeholder="Password" id="password">
                 </div>
                 <div class="login-box">
-                    <input type="submit" class="submit" value="Login">
+                    <button class="submit" id="loginBtn">Login</button>
                 </div>
                 <div class="col">
                     <input type="checkbox" id="login-check">
                     <label for="register-check">Remember Me</label>
                 </div>
             <div class="top">
-                <span>No account? <a href="#" onclick="signup()">Sign up</a></span>
+                <span>No account? <button id="signUp_a">Sign up</button></span>
             </div>
             </div>
     </div>

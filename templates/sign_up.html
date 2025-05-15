@@ -28,11 +28,11 @@
                     <div class="forms">
                         <div class="form-field">
                             <label for="first-name">First Name</label>
-                            <input type="text" id="first-name" placeholder="First Name">
+                            <input type="text" id="firstName" placeholder="First Name">
                         </div>
                         <div class="form-field">
                             <label for="last-name">Last Name</label>
-                            <input type="text" id="last-name" placeholder="Last Name">
+                            <input type="text" id="lastName" placeholder="Last Name">
                         </div>
                         <div class="form-field">
                             <label for="bdate">Birthdate</label>
@@ -48,11 +48,11 @@
                         </div>
                         <div class="form-field">
                             <label for="re-password">Re-enter Password</label>
-                            <input type="password" id="re-password" placeholder="Re-enter Password">
+                            <input type="password" id="repassword" placeholder="Re-enter Password">
                         </div>
                         <div class="form-field">
                             <label for="monthly_salary">Monthly Salary</label>
-                            <input type="number" id="monthly_salary">
+                            <input type="number" id="monthlySalary">
                         </div>
                         <div class="form-field">
                             <label for="pin">Bank Account Pin</label>
@@ -60,14 +60,19 @@
                         </div>
                         <div class="form-field">
                             <label for="start_bal">Starting Balance</label>
-                            <input type="number" id="start_bal">
+                            <input type="number" id="startBalance">
                         </div>
                     </div>
                     <div class="button-container">
-                        <button class="submit" type="submit">Sign Up</button>
+                        <button class="submit" type="submit" id="signUpBtn">Sign Up</button>
                     </div>
+                    <input type="text" id="userType" hidden value="{{ user_type }}">
                 </div>
             </div>
         </div>
     </main>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='js/sign_up.js') }}"></script>
 {% endblock %}

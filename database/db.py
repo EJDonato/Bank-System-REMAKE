@@ -5,7 +5,7 @@ from datetime import date
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="Htyc3v4d3v4d",
+    passwd="admin",
     database="bank_system"
 )
 
@@ -17,15 +17,15 @@ def insert_account_info(gen_info, login_info):
             INSERT INTO customer_account_creation(first_name, last_name, birthdate, monthly_salary, account_number, bank_account_pin, balance)
             VALUES (%s, %s, %s, %s, %s, %s, %s)'''
     query_2 = '''
-            INSERT INTO user_login(account_number, email, password)
-            VALUES (%s, %s, %s)'''
+            INSERT INTO user_login(account_number, email, password, user_type)
+            VALUES (%s, %s, %s, %s)'''
 
     try:
         db.start_transaction()  # To execute simultaneously
 
         my_cursor.execute(query_1, gen_info)
         account_number = gen_info[4]
-        login_params = (account_number, login_info[0], login_info[1])
+        login_params = (account_number, login_info[0], login_info[1], login_info[2])
         my_cursor.execute(query_2, login_params)
 
         db.commit()
@@ -41,6 +41,9 @@ def insert_account_info(gen_info, login_info):
                 return "Account number DUPE"  # Account number is the duplicate
         else:
             raise  # Raise other errors if not IntegrityError
+
+    finally:
+        db.close()
 
 def user_login():
     query = '''
