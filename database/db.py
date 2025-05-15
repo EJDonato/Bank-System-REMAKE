@@ -6,80 +6,91 @@ db = mysql.connector.connect(
     host="localhost",
     user="root",
     passwd="Htyc3v4d3v4d",
-    database="practicedb"
+    database="bank_system"
 )
 
 my_cursor = db.cursor()
 
-def insert_account_info(new_account):
-        query = '''
-                INSERT INTO customer_list(first_name, last_name, birthdate, email, password, account_number,
-                                          account_pin, monthly_salary, starting_balance, is_locked, status)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
-        try:
-            my_cursor.execute(query, new_account)
-            db.commit()
-            return False # Insertion successful. No Duplicates
 
-        except IntegrityError as e:
-            if e:
-                return True # Insertion unsuccessful. Duplicates exists
-            else:
-                raise   # Raise other error if not IntegrityError
+def insert_account_info(gen_info, login_info):
+    query_1 = '''
+            INSERT INTO customer_account_creation(first_name, last_name, birthdate, monthly_salary, account_number, bank_account_pin, balance)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)'''
+    query_2 = '''
+            INSERT INTO user_login(account_number, email, password)
+            VALUES (%s, %s, %s)'''
 
-        finally:
-            my_cursor.close()
+    try:
+        db.start_transaction()  # To execute simultaneously
 
-'''
-new_account = ['Amran', 'Gabarda', date(2005, 8,8), 'myemail@gmail.com', 'mypassword', 12345678, 123456, 50.00, 10.00, False, 'Active']
-insert_account_info(new_account)
-'''
+        my_cursor.execute(query_1, gen_info)
+        account_number = gen_info[4]
+        login_params = (account_number, login_info[0], login_info[1])
+        my_cursor.execute(query_2, login_params)
 
-def join_login_list():  # This should be run every successful execution of insert_account_info
+        db.commit()
+        return False  # Insertion successful. No Duplicates
+
+    except IntegrityError as e:
+        error_message = str(e)
+
+        if "Duplicate entry" in error_message:
+            if "user_login.email" in error_message:
+                return "Email DUPE"  # Email is the duplicate
+            elif "user_login.account_number" in error_message:
+                return "Account number DUPE"  # Account number is the duplicate
+        else:
+            raise  # Raise other errors if not IntegrityError
+
+def user_login():
     query = '''
-    INSERT INTO customer_login (email, password, status)
-    SELECT email, password, status 
-    FROM customer_list'''
+    INSERT INTO user_login(account_number)
+    SELECT cac.account_number
+    FROM customer_account_creation cac 
+        LEFT JOIN user_login ul ON cac.account_number = ul.account_number
+    WHERE ul.account_number IS NULL;
+    '''
     my_cursor.execute(query)
     db.commit()
 
-def verify_login_credentials(email, password, status) -> bool:  # if this executes True, current_customer() must be called.
-    query = "SELECT * FROM customer_login WHERE email = %s AND password = %s AND status = %s"
-    my_cursor.execute(query, (email, password, status))
+def verify_login_credentials(email, password) -> bool:
+    query = "SELECT status FROM user_login WHERE email = %s AND password = %s"
+    my_cursor.execute(query, (email, password))
     result = my_cursor.fetchone()
-    return result is not None
+    if result is not None:
+        return result[0]    # if matched, return status
+    else:
+        return False
 
-'''
-email = "myemail@mail.com"
-password = "mypassword"
-status = "Active"
-print(verify_login_credentials(email, password, status))
-'''
 
-def current_customer():
-    pass
-
-def update_customer_list_from_current():    # pang update from CURRENT CUSTOMER to CUSTOMER LIST kapag nag withdraw, deposit, change pin, or na lock
+def customer_list():
     query = '''
-    UPDATE customer_list cl
-    JOIN current_customer cc
-    ON cl.account_number = cc.account_number
-    SET cl.bank_account_pin = cc.bank_account_pin, cl.starting_balance = cc.starting_balance, cl.is_locked = cc.is_locked'''
+    INSERT INTO customer_list(
+        index_id,
+        first_name,
+        last_name,
+        birthdate,
+        monthly_salary,
+        account_number,
+        bank_account_pin,
+        balance,
+        loan_balance,
+        is_locked)
+    SELECT 
+        cac.index_id, 
+        cac.first_name, 
+        cac.last_name, 
+        cac.birthdate, 
+        cac.monthly_salary, 
+        ul.account_number, 
+        cac.bank_account_pin, 
+        cac.balance, 
+        0 AS loan_balance, 
+        FALSE AS is_locked
+    FROM 
+        customer_account_creation cac
+    INNER JOIN user_login ul ON cac.email = ul.email
+    LEFT JOIN customer_list cl ON cac.index_id = cl.index_id;
+'''
     my_cursor.execute(query)
-    db.commit()
-
-def authenticate(bank_account_pin):
-    query = "SELECT * FROM current_customer WHERE bank_account_pin = %s"
-    my_cursor.execute(query, (bank_account_pin,))
-    result = my_cursor.fetchone()
-    return result is not None
-#
-def get_current_balance():
-    query = "SELECT starting_balance FROM current_customer"
-    my_cursor.execute(query)
-    return my_cursor.fetchone()[0]
-
-def update_balance(new_balance):
-    query = "UPDATE current_customer SET starting_balance = %s"
-    my_cursor.execute(query, (new_balance,))
     db.commit()
