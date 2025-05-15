@@ -17,15 +17,15 @@ def insert_account_info(gen_info, login_info):
             INSERT INTO customer_account_creation(first_name, last_name, birthdate, monthly_salary, account_number, bank_account_pin, balance)
             VALUES (%s, %s, %s, %s, %s, %s, %s)'''
     query_2 = '''
-            INSERT INTO user_login(account_number, email, password)
-            VALUES (%s, %s, %s)'''
+            INSERT INTO user_login(account_number, email, password, user_type)
+            VALUES (%s, %s, %s, %s)'''
 
     try:
         db.start_transaction()  # To execute simultaneously
 
         my_cursor.execute(query_1, gen_info)
         account_number = gen_info[4]
-        login_params = (account_number, login_info[0], login_info[1])
+        login_params = (account_number, login_info[0], login_info[1], login_info[2])
         my_cursor.execute(query_2, login_params)
 
         db.commit()
@@ -42,26 +42,37 @@ def insert_account_info(gen_info, login_info):
         else:
             raise  # Raise other errors if not IntegrityError
 
-def user_login():
-    query = '''
-    INSERT INTO user_login(account_number)
-    SELECT cac.account_number
-    FROM customer_account_creation cac 
-        LEFT JOIN user_login ul ON cac.account_number = ul.account_number
-    WHERE ul.account_number IS NULL;
-    '''
-    my_cursor.execute(query)
-    db.commit()
-
-def verify_login_credentials(email, password) -> bool:
-    query = "SELECT status FROM user_login WHERE email = %s AND password = %s"
+def verify_login_credentials(email, password):
+    query = "SELECT account_number FROM user_login WHERE email = %s AND password = %s"
     my_cursor.execute(query, (email, password))
     result = my_cursor.fetchone()
+
     if result is not None:
-        return result[0]    # if matched, return status
+        account_number = result[0]
+
+        inner_query = '''
+                SELECT
+                    cl.first_name,
+                    cl.last_name,
+                    cl.birthdate,
+                    cl.monthly_salary,
+                    cl.account_number,
+                    cl.bank_account_pin,
+                    cl.balance,
+                    cl.loan_balance,
+                    ul.status
+                FROM 
+	                customer_list cl
+                LEFT JOIN
+	                user_login ul ON cl.account_number = ul.account_number
+                WHERE cl.account_number = %s;'''
+
+        my_cursor.execute(inner_query, (account_number,))
+        inner_result = my_cursor.fetchone()
+        return inner_result
+
     else:
         return False
-
 
 def customer_list():
     query = '''
