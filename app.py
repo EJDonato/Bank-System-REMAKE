@@ -3,7 +3,6 @@ from flask import Flask, jsonify, render_template, request
 from blueprints.customer_routes import customer
 from backend.customer_scripts import CustomerFacade
 
-CustomerFacade()
 
 class FlaskApp():
     def __init__(self):
