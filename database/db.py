@@ -29,10 +29,12 @@ def insert_account_info(gen_info, login_info):
         my_cursor.execute(query_2, login_params)
 
         db.commit()
-        return False  # Insertion successful. No Duplicates
+        return "Success"  # Insertion successful. No Duplicates
 
     except IntegrityError as e:
+        db.rollback()  # Rollback the transaction on error
         error_message = str(e)
+        print(f"Error: {error_message}")
 
         if "Duplicate entry" in error_message:
             if "user_login.email" in error_message:
@@ -42,8 +44,6 @@ def insert_account_info(gen_info, login_info):
         else:
             raise  # Raise other errors if not IntegrityError
 
-    finally:
-        db.close()
 
 def user_login():
     query = '''

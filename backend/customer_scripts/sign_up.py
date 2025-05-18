@@ -8,6 +8,7 @@ from database import insert_account_info
 class Signup:
     ACC_NUM_DUPE = "Account number DUPE"
     EMAIL_DUPE = "Email DUPE"
+    SUCCESS = "Success"
 
     # Attempts to insert account info; regenerates account number if duplicate, returns False if email exists
     def insert_acc_info_to_database(self, bank_account, user_type):
@@ -20,7 +21,7 @@ class Signup:
 
         if check == self.EMAIL_DUPE:
             return False  # EMAIL IS ALREADY EXISTING
-        else:
+        elif check == self.SUCCESS:
             return True  #SIGNUP SUCCESSFUL
         
     def generate_account_number(self):

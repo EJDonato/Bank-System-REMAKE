@@ -12,10 +12,14 @@ class CustomerFacade:
     def sign_up(self, email, password, first_name, last_name, birthdate, pin, monthly_salary, initial_balance, user_type):
         self.bank_account = BankAccount(email, password, first_name, last_name, birthdate, pin, monthly_salary, initial_balance)
         success = self.signup.insert_acc_info_to_database(self.bank_account, user_type)
+
+        print("Inserting account info to database...")
         
         if success:
+            print("Account info inserted successfully. Signup complete.")
             return True
-        else:   
+        else:
+            print("Account info insertion failed. Signup unsuccessful.")   
             return False
 
     def log_in(self, email, password):

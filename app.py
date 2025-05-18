@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, redirect, Response
 
 from blueprints.customer_routes import customer
 from backend.customer_scripts import CustomerFacade
@@ -24,6 +24,7 @@ class FlaskApp():
         def pending_account():
             return render_template("pending_account_page.html")
         
+        # Route for handling login information
         @self.app.route("/login_info", methods=["POST"])
         def login():
             data = request.json
@@ -39,25 +40,29 @@ class FlaskApp():
             else:
                 return success
             
+        # Route for handling sign-up information 
         @self.app.route("/sign_up_info", methods=["POST"])
         def sign_up_info():
-            data = request.json
+            data = request.form
 
-            first_name = data.get("first_name")
-            last_name = data.get("last_name")
+            first_name = data.get("firstName")
+            last_name = data.get("lastName")
             email = data.get("email")
             password = data.get("password")
             birthdate = data.get("bdate")
-            monthly_salary = data.get("monthly_salary")
+            monthly_salary = data.get("monthlySalary")
             bank_account_pin = data.get("pin")
-            start_balance = data.get("start_balance")
-            user_type = data.get("user_type")
-
-            print(bank_account_pin)
+            start_balance = data.get("startBalance")
+            user_type = data.get("userType")
 
             facade = CustomerFacade()
 
-            facade.sign_up(email, password, first_name, last_name, birthdate, bank_account_pin, monthly_salary, start_balance, user_type)
+            if facade.sign_up(email, password, first_name, last_name, birthdate, bank_account_pin, monthly_salary, start_balance, user_type):
+                return Response(status=200)
+            else:
+                return Response(status=400)
+
+                
 
         
 
