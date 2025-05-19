@@ -37,6 +37,9 @@ class FlaskApp():
             user_info = facade.log_in(email, password, user_type) # This should get "pending" or "locked" or acc_num
             print(user_info)
 
+            if user_info is None: # means user not found
+                pass
+
             if user_info["status"] == "pending":
                 return jsonify({"redirect_url": "/pending_account"})
             elif user_info["status"] == "locked":
