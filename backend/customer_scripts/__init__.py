@@ -1,2 +1,2 @@
 
-from _facade import CustomerFacade
+from ._facade import CustomerFacade
