@@ -40,26 +40,28 @@
             <div class="top">
                 <h2>Customer</h2>
             </div>
-            <div class="two-forms">
-                <input type="text" id="userType" hidden value="">
+            <form id="loginForm">
+                <div class="two-forms">
+                    <input type="text" id="userType" hidden value="" name="userType">
 
-                <div class="input-box">
-                    <input type="text" class="input-field" placeholder="username@gmail.com" id="email">
+                    <div class="input-box">
+                        <input type="text" class="input-field" placeholder="username@gmail.com" id="email" name="email" required>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" class="input-field" placeholder="Password" id="password" name="password" required>
+                    </div>
+                    <div class="login-box">
+                        <button class="submit" id="loginBtn">Login</button>
+                    </div>
+                    <div class="col">
+                        <input type="checkbox" id="login-check">
+                        <label for="register-check">Remember Me</label>
+                    </div>
+                    <div class="top">
+                        <span>No account? <a href="#" id="signUp_a">Sign up</a></span>
+                    </div>
                 </div>
-                <div class="input-box">
-                    <input type="password" class="input-field" placeholder="Password" id="password">
-                </div>
-                <div class="login-box">
-                    <button class="submit" id="loginBtn">Login</button>
-                </div>
-                <div class="col">
-                    <input type="checkbox" id="login-check">
-                    <label for="register-check">Remember Me</label>
-                </div>
-            <div class="top">
-                <span>No account? <a href="#" id="signUp_a">Sign up</a></span>
-            </div>
-            </div>
+            </form>
     </div>
 </div>
 {% endblock %}

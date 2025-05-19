@@ -22,7 +22,6 @@ class CustomerFacade:
             print("Account info insertion failed. Signup unsuccessful.")   
             return False
 
-    def log_in(self, email, password):
-        self.login.check_account(email,password)
-        get_user_info = self.login.check_account()
-        return get_user_info  # returns false if email and password mismatched
+    def log_in(self, email, password, user_type):
+        get_user_info = self.login.check_account(email, password, user_type)
+        return get_user_info  # returns user else none

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, redirect, Response
+from flask import Flask, jsonify, render_template, request, redirect, Response, session
 
 from blueprints.customer_routes import customer
 from backend.customer_scripts import CustomerFacade
@@ -27,18 +27,25 @@ class FlaskApp():
         # Route for handling login information
         @self.app.route("/login_info", methods=["POST"])
         def login():
-            data = request.json
+            data = request.form
             email = data.get("email")
             password = data.get("password")
+            user_type = data.get("userType")
 
             facade = CustomerFacade()
 
-            success = facade.log_in(email, password) 
+            user_info = facade.log_in(email, password, user_type) # This should get "pending" or "locked" or acc_num
+            print(user_info)
 
-            if not success:
-                return False
-            else:
-                return success
+            if user_info["status"] == "pending":
+                return jsonify({"redirect_url": "/pending_account"})
+            elif user_info["status"] == "locked":
+                pass
+            else: # means acc is active
+                session["user"] = user_info
+                print("User is now in session")
+                return jsonify({"redirect_url": f"/homepage/customer/{user_info['first_name'] + '-' + user_info['last_name']}"})
+
             
         # Route for handling sign-up information 
         @self.app.route("/sign_up_info", methods=["POST"])

@@ -41,23 +41,25 @@ go_to_signUp_a.addEventListener("click", () => {
 const loginBtn = document.getElementById('loginBtn');
 loginBtn.addEventListener('click', login);
 
+const loginForm = document.getElementById('loginForm');
+
 function login() {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+  if (!loginForm.checkValidity()) {
+        // This triggers the browser's built-in validation UI automatically
+        loginForm.reportValidity();
+        return; // stop submission if invalid
+    }
+
+  const loginFormData = new FormData(loginForm);
 
   fetch('/login_info', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      "email": email, 
-      "password": password 
-    })
+    body: loginFormData
   })
   .then(response => response.json())
   .then(data => {
-    // DIPA TO TAPOS
+    redirect_url = data.redirect_url;
+    window.location.href = redirect_url;
   })
 }
 

@@ -14,10 +14,10 @@ my_cursor = db.cursor()
 
 def insert_account_info(gen_info, login_info):
     query_1 = '''
-            INSERT INTO customer_account_creation(first_name, last_name, birthdate, monthly_salary, account_number, bank_account_pin, balance)
+            INSERT INTO customer_list (first_name, last_name, birthdate, monthly_salary, account_number, bank_account_pin, balance)
             VALUES (%s, %s, %s, %s, %s, %s, %s)'''
     query_2 = '''
-            INSERT INTO user_login(account_number, email, password, user_type)
+            INSERT INTO user_login (account_number, email, password, user_type)
             VALUES (%s, %s, %s, %s)'''
 
     try:
@@ -56,15 +56,36 @@ def user_login():
     my_cursor.execute(query)
     db.commit()
 
-def verify_login_credentials(email, password) -> bool:
-    query = "SELECT status FROM user_login WHERE email = %s AND password = %s"
-    my_cursor.execute(query, (email, password))
+def verify_login_credentials(email, password, user_type):
+    query = """
+            SELECT  
+                ul.account_number, 
+                ul.email,
+                ul.user_type,
+                ul.status,
+                cl.first_name,
+                cl.last_name,
+                cl.birthdate,
+                cl.bank_account_pin,
+                cl.monthly_salary,
+                cl.balance
+            FROM user_login ul
+            LEFT JOIN customer_list cl ON ul.account_number = cl.account_number
+            WHERE ul.email = %s AND ul.password = %s AND ul.user_type = %s
+            """
+    my_cursor.execute(query, (email, password, user_type))
     result = my_cursor.fetchone()
-    if result is not None:
-        return result[0]    # if matched, return status
-    else:
-        return False
 
+    # Convert result to dictionary
+    columns = [column[0] for column in my_cursor.description]
+    result_dict = dict(zip(columns, result))
+    # Convert some datas to processable data types
+    result_dict["birthdate"] = str(result_dict["birthdate"])
+    result_dict["monthly_salary"] = float(result_dict["monthly_salary"])
+    result_dict["balance"] = float(result_dict["balance"]) 
+    print(result_dict) 
+
+    return result_dict  # returns user else none
 
 def customer_list():
     query = '''

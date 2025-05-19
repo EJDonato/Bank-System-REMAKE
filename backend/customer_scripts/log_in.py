@@ -1,13 +1,11 @@
-from database.db import verify_login_credentials
+from database import verify_login_credentials
 
 
 class Login:
-    def check_account(self, email, password):
+    def check_account(self, email, password, user_type):
         ## SQL QUERY ##
-        check = verify_login_credentials(email, password)
+        check = verify_login_credentials(email, password, user_type)
 
-        if check is False:
-            return False  # EMAIL AND PASSWORD MISMATCHED
-        else:
-            return(check)  # THIS WILL ONLY RETURN ACCOUNT NUMBER, EMAIL, PASSWORD, AND ROLE
-                            # since the check is only used in user_login table
+        return check
+
+    
