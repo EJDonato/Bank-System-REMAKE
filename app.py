@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, render_template, request, redirect, Response, session
+import secrets
 
 from blueprints.customer_routes import customer
 from backend.customer_scripts import CustomerFacade
@@ -9,7 +10,7 @@ class FlaskApp():
         
         self.app = Flask(__name__)
         self.app.register_blueprint(customer)
-        self.app.secret_key = "f3a8c91e1c9d4b9a84a7b6cd9a5db57e"
+        self.app.secret_key = secrets.token_hex(16)  # Generate a random secret key for session management
 
         @self.app.route("/")
         def index():
