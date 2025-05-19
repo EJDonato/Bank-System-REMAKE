@@ -8,7 +8,7 @@ const customerBox = document.getElementById('customerBox');
 
 const userType = document.getElementById('userType');
 
-
+// SET USER TYPE
 customerBtn.addEventListener('click', () => {
   wrapper.style.display = 'none'; 
   customerBox.style.display = 'block'; 
@@ -16,15 +16,17 @@ customerBtn.addEventListener('click', () => {
   userType.value = 'customer';
 });
 
-
-// SET USER TYPE
 tellerBtn.addEventListener('click', () => {
+  wrapper.style.display = 'none'; 
+  customerBox.style.display = 'block'; 
+
   userType.value = 'teller';
 })
 
 managerBtn.addEventListener('click', () => {
   userType.value = 'manager';
 })
+
 
 // WHEN U CLICK THE SIGN UP ANCHOR
 const go_to_signUp_a = document.getElementById("signUp_a");
