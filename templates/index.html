@@ -1,31 +1,29 @@
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/styles.css">
-    <title>InspirePay</title>
-    <style>
-        .customer-box {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <nav class ="nav">
-        <div class="nav-logo">
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block title %}InspirePay{% endblock %}
+
+
+{% block content %}
+    <header class="nav">
+        <div class="logo">
             <p>InspirePay</p>
         </div>
         <div class="nav-menu">
             <ul>
-                <li><a href="#link" class="link">About</a></li>
-                <li><a href="#link" class="link">Services</a></li>
-                <li><a href="#link" class="link">Contact</a></li>
-                <li><a href="#link" class="link home">Home</a></li>
+                <li><a href="#about" class="link">About</a></li>
+                <li><a href="#services" class="link">Services</a></li>
+                <li><a href="#contact" class="link">Contact</a></li>
+                <li><a href="#home" class="link">Home</a></li>
             </ul>
         </div>
-    </nav>
+    </header>
+    
+    
     <div class="wrapper">
         <div class="nav-button-container">
             <button class="nav-btn" id="customerbtn">Customer</button>
@@ -42,44 +40,35 @@
             <div class="top">
                 <h2>Customer</h2>
             </div>
-            <div class="two-forms">
-                <div class="input-box">
-                    <input type="text" class="input-field" placeholder="username@gmail.com">
+            <form id="loginForm">
+                <div class="two-forms">
+                    <input type="text" id="userType" hidden value="" name="userType">
+
+                    <div class="input-box">
+                        <input type="text" class="input-field" placeholder="username@gmail.com" id="email" name="email" required>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" class="input-field" placeholder="Password" id="password" name="password" required>
+                    </div>
+                    
+                    <p id="errorMsg" style="display:none; color:red;"></p>
+                    
+                    <div class="login-box">
+                        <button class="submit" id="loginBtn">Login</button>
+                    </div>
+                    <div class="col">
+                        <input type="checkbox" id="login-check">
+                        <label for="register-check">Remember Me</label>
+                    </div>
+                    <div class="top">
+                        <span>No account? <a href="#" id="signUp_a">Sign up</a></span>
+                    </div>
                 </div>
-                <div class="input-box">
-                    <input type="password" class="input-field" placeholder="Password">
-                </div>
-                <div class="input-box">
-                    <input type="submit" class="submit" value="Login">
-                </div>
-            <div class="top">
-                <span>No account? <a href="#" onclick="signup()">Sign up</a></span>
-            </div>
-                <div class="col">
-                    <input type="checkbox" id="login-check">
-                    <label for="register-check">Remember Me</label>
-                </div>
-            </div>
-    </div>
-    </div>
-    <button class="back-btn" id="backBtn">Back</button>
+            </form>
     </div>
 </div>
-<script>
-    const customerBtn = document.getElementById('customerbtn');
-    const wrapper = document.querySelector('.wrapper');
-    const customerBox = document.getElementById('customerBox');
-    const backBtn = document.getElementById('backBtn');
+{% endblock %}
 
-    customerBtn.addEventListener('click', () => {
-      wrapper.style.display = 'none'; 
-      customerBox.style.display = 'block'; 
-    });
-
-    backBtn.addEventListener('click', () => {
-      customerBox.style.display = 'none'; 
-      wrapper.style.display = 'block'; 
-    });
-  </script>
-</body>
-</html>
+{% block script %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock%}

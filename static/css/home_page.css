@@ -1,17 +1,4 @@
 
-* {
-    box-sizing: border-box;
-    font-family: 'Lucida Console', monospace;
-    margin: 0;
-    padding: 0;
-}
-body {
-    background: url("/static/images/frontpage-bg.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-
 
 header{
     position: flex;
@@ -56,7 +43,7 @@ h1 {
 }
 
 .acc_infocard {
-    background: white;
+    background: transparent;
 
     padding: 2%;
     width: 50%;
@@ -81,18 +68,19 @@ h1 {
     font-weight: bold;
 }
 
-.buttons {
+.wrapper .buttons {
     margin-top: 3%;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    color: #000;
 }
 
 .buttons button {
     padding: 10px 20px;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(135deg, #333, #444);
+    background: #000;
     color: #fff;
     font-size: 1rem;
     cursor: pointer;

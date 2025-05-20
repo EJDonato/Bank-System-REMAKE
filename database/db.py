@@ -5,7 +5,7 @@ from datetime import date
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="Htyc3v4d3v4d",
+    passwd="admin",
     database="bank_system"
 )
 
@@ -14,7 +14,7 @@ my_cursor = db.cursor()
 
 def insert_account_info(gen_info, login_info):
     query_1 = '''
-            INSERT INTO customer_account_creation(first_name, last_name, birthdate, monthly_salary, account_number, bank_account_pin, balance)
+            INSERT INTO customer_list (first_name, last_name, birthdate, monthly_salary, account_number, bank_account_pin, balance)
             VALUES (%s, %s, %s, %s, %s, %s, %s)'''
     query_2 = '''
             INSERT INTO user_login(account_number, email, password, user_type)
@@ -29,10 +29,12 @@ def insert_account_info(gen_info, login_info):
         my_cursor.execute(query_2, login_params)
 
         db.commit()
-        return False  # Insertion successful. No Duplicates
+        return "Success"  # Insertion successful. No Duplicates
 
     except IntegrityError as e:
+        db.rollback()  # Rollback the transaction on error
         error_message = str(e)
+        print(f"Error: {error_message}")
 
         if "Duplicate entry" in error_message:
             if "user_login.email" in error_message:
@@ -42,37 +44,41 @@ def insert_account_info(gen_info, login_info):
         else:
             raise  # Raise other errors if not IntegrityError
 
-def verify_login_credentials(email, password):
-    query = "SELECT account_number FROM user_login WHERE email = %s AND password = %s"
-    my_cursor.execute(query, (email, password))
+
+def verify_login_credentials(email, password, user_type):
+    query = """
+            SELECT  
+                ul.account_number, 
+                ul.email,
+                ul.user_type,
+                ul.status,
+                cl.first_name,
+                cl.last_name,
+                cl.birthdate,
+                cl.bank_account_pin,
+                cl.monthly_salary,
+                cl.balance
+            FROM user_login ul
+            LEFT JOIN customer_list cl ON ul.account_number = cl.account_number
+            WHERE ul.email = %s AND ul.password = %s AND ul.user_type = %s
+            """
+    my_cursor.execute(query, (email, password, user_type))
     result = my_cursor.fetchone()
 
-    if result is not None:
-        account_number = result[0]
+    if result is None:
+        return None
 
-        inner_query = '''
-                SELECT
-                    cl.first_name,
-                    cl.last_name,
-                    cl.birthdate,
-                    cl.monthly_salary,
-                    cl.account_number,
-                    cl.bank_account_pin,
-                    cl.balance,
-                    cl.loan_balance,
-                    ul.status
-                FROM 
-	                customer_list cl
-                LEFT JOIN
-	                user_login ul ON cl.account_number = ul.account_number
-                WHERE cl.account_number = %s;'''
+    # Convert result to dictionary
+    columns = [column[0] for column in my_cursor.description]
+    result_dict = dict(zip(columns, result))
+    # Convert some datas to processable data types
+    result_dict["birthdate"] = str(result_dict["birthdate"])
+    result_dict["monthly_salary"] = float(result_dict["monthly_salary"])
+    result_dict["balance"] = float(result_dict["balance"]) 
+    print(result_dict) 
 
-        my_cursor.execute(inner_query, (account_number,))
-        inner_result = my_cursor.fetchone()
-        return inner_result
+    return result_dict  # returns user else none
 
-    else:
-        return False
 
 def customer_list():
     query = '''

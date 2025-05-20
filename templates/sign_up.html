@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sign_up.css') }}">
+{% endblock %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+    <header class="nav">
+        <div class="logo">
+            <p>InspirePay</p>
+        </div>
+        <div class="nav-menu">
+            <ul>
+                <li><a href="#about" class="link">About</a></li>
+                <li><a href="#services" class="link">Services</a></li>
+                <li><a href="#contact" class="link">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <h2>Start Your Banking Journey With Us!</h2>
+        <div class="signup-box" id="SignupBox">
+            <div class="signup-container" id="signup">
+                <form class="signup-container" id="signupForm">
+                    <div class="inputbox">
+                        <div class="forms">
+                                <div class="form-field">
+                                    <label for="first-name">First Name</label>
+                                    <input type="text" id="firstName" placeholder="First Name" required name="firstName">
+                                </div>
+                                <div class="form-field">
+                                    <label for="last-name">Last Name</label>
+                                    <input type="text" id="lastName" placeholder="Last Name" required name="lastName">
+                                </div>
+                                <div class="form-field">
+                                    <label for="bdate">Birthdate</label>
+                                    <input type="date" id="bdate" required name="bdate">
+                                </div>
+                                <div class="form-field">
+                                    <label for="email">Email</label>
+                                    <input type="text" id="email" placeholder="email@gmail.com" required name="email">
+                                </div>
+                                <div class="form-field">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" placeholder="Password" required name="password">
+                                </div>
+                                <div class="form-field">
+                                    <label for="re-password">Re-enter Password</label>
+                                    <input type="password" id="repassword" placeholder="Re-enter Password" required>
+                                </div>
+                                <div class="form-field">
+                                    <label for="monthly_salary">Monthly Salary</label>
+                                    <input type="number" id="monthlySalary" required name="monthlySalary">
+                                </div>
+                                <div class="form-field">
+                                    <label for="pin">Bank Account Pin</label>
+                                    <input type="number" id="pin" required name="pin">
+                                </div>
+                                <div class="form-field">
+                                    <label for="start_bal">Starting Balance</label>
+                                    <input type="number" id="startBalance" required name="startBalance">
+                                </div>
+                        
+                        </div>
+            
+                        <div class="button-container">
+                            <button class="submit" id="signUpBtn">Sign Up</button>
+                        </div>
+                        <input type="text" id="userType" hidden value="{{ user_type }}" name="userType">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='js/sign_up.js') }}"></script>
+{% endblock %}

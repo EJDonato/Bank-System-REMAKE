@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pending_account_page.css') }}">
+{% endblock %}
+
+{% block title %}Pending Approval{% endblock %}
+    
+
+{% block content %}
+    <header class="nav">
+        <div class="logo">
+            <p>InspirePay</p>
+        </div>
+        <div class="nav-menu">
+            <ul>
+                <li><a href="#about" class="link">About</a></li>
+                <li><a href="#services" class="link">Services</a></li>
+                <li><a href="#contact" class="link">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="loader"></div>
+        <div class="text">
+            <h1>Account Creation in Progress</h1>
+            <p>Your bank account creation request is currently pending approval. Please check back soon.</p>
+        </div>
+        <div class="buttons">
+            <button id="logoutBtn">Log Out</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='js/pending_account.js') }}"></script>
+{% endblock %}
