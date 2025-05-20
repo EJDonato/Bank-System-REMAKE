@@ -119,3 +119,9 @@ header, .nav {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     transform: scale(1.03);
 }
+
+#error-msg {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}

@@ -14,7 +14,10 @@ class FlaskApp():
 
         @self.app.route("/")
         def index():
-            return render_template("index.html")
+            if "user" in session:
+                return redirect(f"/homepage/customer/{session['user']['first_name'] + '-' + session['user']['last_name']}")
+
+            return render_template("index.html", error_login=False)
         
         @self.app.route("/sign_up/<user_type>")
         def sign_up(user_type):
@@ -39,7 +42,8 @@ class FlaskApp():
             print(user_info)
 
             if user_info is None: # means user not found
-                pass
+                print("user info:", user_info)
+                return jsonify({"error": "Invalid email or password"}), 404
 
             if user_info["status"] == "pending":
                 return jsonify({"redirect_url": "/pending_account"})
@@ -48,7 +52,7 @@ class FlaskApp():
             else: # means acc is active
                 session["user"] = user_info
                 print("User is now in session")
-                return jsonify({"redirect_url": f"/homepage/customer/{user_info['first_name'] + '-' + user_info['last_name']}"})
+                return jsonify({"redirect_url": f"/homepage/customer/{user_info['first_name'] + '-' + user_info['last_name']}"}), 200
 
             
         # Route for handling sign-up information 
