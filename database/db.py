@@ -17,7 +17,7 @@ def insert_account_info(gen_info, login_info):
             INSERT INTO customer_list (first_name, last_name, birthdate, monthly_salary, account_number, bank_account_pin, balance)
             VALUES (%s, %s, %s, %s, %s, %s, %s)'''
     query_2 = '''
-            INSERT INTO user_login(account_number, email, password, user_type)
+            INSERT INTO user_login (account_number, email, password, user_type)
             VALUES (%s, %s, %s, %s)'''
 
     try:
@@ -44,6 +44,17 @@ def insert_account_info(gen_info, login_info):
         else:
             raise  # Raise other errors if not IntegrityError
 
+
+def user_login():
+    query = '''
+    INSERT INTO user_login(account_number)
+    SELECT cac.account_number
+    FROM customer_account_creation cac 
+        LEFT JOIN user_login ul ON cac.account_number = ul.account_number
+    WHERE ul.account_number IS NULL;
+    '''
+    my_cursor.execute(query)
+    db.commit()
 
 def verify_login_credentials(email, password, user_type):
     query = """
@@ -78,7 +89,6 @@ def verify_login_credentials(email, password, user_type):
     print(result_dict) 
 
     return result_dict  # returns user else none
-
 
 def customer_list():
     query = '''
