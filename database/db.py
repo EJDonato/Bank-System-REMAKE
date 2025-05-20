@@ -76,6 +76,9 @@ def verify_login_credentials(email, password, user_type):
     my_cursor.execute(query, (email, password, user_type))
     result = my_cursor.fetchone()
 
+    if result is None:
+        return None
+
     # Convert result to dictionary
     columns = [column[0] for column in my_cursor.description]
     result_dict = dict(zip(columns, result))
