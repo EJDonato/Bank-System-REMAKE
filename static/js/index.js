@@ -43,46 +43,38 @@ loginBtn.addEventListener('click', login);
 
 const loginForm = document.getElementById('loginForm');
 
-function login(event) {
-  event.preventDefault(); // Prevent the default form submission
+async function login(event) {
+    event.preventDefault(); // Prevent the default form submission
 
-  if (!loginForm.checkValidity()) {
+    if (!loginForm.checkValidity()) {
         // This triggers the browser's built-in validation UI automatically
         loginForm.reportValidity();
         return; // stop submission if invalid
     }
 
-  const loginFormData = new FormData(loginForm);
+    const loginFormData = new FormData(loginForm);
 
-    fetch('/login_info', {
-      method: 'POST',
-      body: loginFormData
-    })
-    .then(response => {
-      console.log(response);
-      if (response.ok) {
-        // Handle successful login response
-        return response.json(); // Assuming the server responds with JSON
-      } 
-      else {
-        // Handle error response
-        return response.json().then(err => {
-          console.log('Error:', err);
-          throw new Error(err.error || "Login Failed"); // Throw an error to be caught in the catch block
-        })
+    try {
+        // Fetch data then wait for response
+        const response = await fetch('/login_info', {
+            method: 'POST',
+            body: loginFormData
+            });
+      
+      // After receiving response
+      const data = await response.json();
+
+      if (!response.ok) {
+          throw new Error(data.error || "Login Failed")
       }
-    })
-    .then(data => {
-      redirect_url = data.redirect_url;
-      window.location.href = redirect_url;
-    })
-    .catch(error => {
-      console.log('Error:', error.message);
-      const errorMsg = document.getElementById('errorMsg');
-      errorMsg.style.display = 'block'; // Show the error message
-      errorMsg.textContent = error.message; // Display the error message
-    });
-  }
 
+      const redirect_url = data.redirect_url
+      window.location.href = redirect_url
 
-
+    } 
+    catch (error) {
+        const errorMsg = document.getElementById('errorMsg');
+        errorMsg.style.display = 'block'; // Show the error message
+        errorMsg.textContent = error.message; // Display the error message
+    }
+}
