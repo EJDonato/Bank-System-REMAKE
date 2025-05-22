@@ -5,7 +5,7 @@ from datetime import date
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="admin",
+    passwd="Htyc3v4d3v4d",
     database="bank_system"
 )
 
@@ -111,3 +111,19 @@ def customer_list():
 '''
     my_cursor.execute(query)
     db.commit()
+
+
+def authenticate(account_number, pin): # receives pin and account number and authenticates if pin matches pin connected to account number
+    query = '''SELECT * FROM customer_list WHERE account_number = %s and bank_account_pin = %s'''
+    my_cursor.execute(query, (account_number, pin))
+    result = my_cursor.fetchone()
+    if result is None:
+        return False
+    
+    return True
+
+def update_balance(new_balance, account_number):
+    query = '''UPDATE customer_list SET balance = %s WHERE account_number = %s'''
+    my_cursor.execute(query, (new_balance, account_number))
+    db.commit()
+    
