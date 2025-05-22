@@ -4,7 +4,7 @@ signUpBtn.addEventListener("click", signUp);
 
 const signupForm = document.getElementById("signupForm");
 
-function signUp() {
+async function signUp() {
     if (!signupForm.checkValidity()) {
         // This triggers the browser's built-in validation UI automatically
         signupForm.reportValidity();
@@ -13,20 +13,23 @@ function signUp() {
 
     const signupFormData = new FormData(signupForm);
 
-    // INSERT PASSWORD REPASSWORD CHECK HERE
+    // Insert password repassword matching check here
 
-    fetch("/sign_up_info", {
+    try {
+        const response = await fetch("/sign_up_info", {
         method: "POST",
         body: signupFormData
-    })
-    .then(response => {
-        if (response.ok) {
-            // Handle successful sign up response
-            alert("Sign up successful!");
-            window.location.href = "/pending_account";
-        } else {
-            // Handle error response
-            alert("Sign up failed. Please try again.");
+        })
+
+        if (!response.ok) {
+            throw new Error("Sign up failed. Please try again.")
         }
-    })
+
+        window.location.href = "/pending_account"
+    }
+    catch (error) {
+        alert (error.message || "Something went wrong.")
+    }
+    
 }
+
