@@ -14,7 +14,7 @@
         </div>
         <div class="nav">
             <ul>
-                <li><a href="#link" class="link">Log Out</a></li>
+                <li><a href="#" class="link" id="logOut">Log Out</a></li>
             </ul>
         </div>
     </header>
@@ -48,4 +48,8 @@
         </div>
         
     </main>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='js/homepage.js') }}"></script>
 {% endblock %}

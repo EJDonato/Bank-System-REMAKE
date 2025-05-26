@@ -25,6 +25,11 @@ class FlaskApp():
         @self.app.route("/pending_account")
         def pending_account():
             return render_template("pending_account_page.html")
+        
+        @self.app.route("/logout", methods=["POST"])
+        def logout():
+            session.clear()
+            return Response(status=200)
            
 
     def run(self, **kwargs):
