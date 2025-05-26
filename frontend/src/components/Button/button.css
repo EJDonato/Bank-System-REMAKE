@@ -1,5 +1,4 @@
 
-
 .button {
     background-color: #000000;
     color: #fff;
@@ -13,6 +12,24 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 .button:hover {
+    background-color: grey;
+    transform: scale(1.05);
+}
+
+.loginBtn {
+    width: 300px; 
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.loginBtn:hover {
     background-color: grey;
     transform: scale(1.05);
 }
