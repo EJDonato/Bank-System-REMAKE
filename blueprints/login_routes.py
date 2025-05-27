@@ -30,4 +30,4 @@ def login():
     else: # means acc is active
         session["user"] = user_info
         print("User is now in session")
-        return jsonify({"redirect_url": f"/homepage/customer/{user_info['first_name'] + '-' + user_info['last_name']}"}), 200
+        return jsonify({"redirect_url": f"/homepage/{user_type}/{user_info['first_name'] + '-' + user_info['last_name']}"}), 200

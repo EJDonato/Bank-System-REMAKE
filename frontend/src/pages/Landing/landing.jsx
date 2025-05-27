@@ -27,7 +27,6 @@ function Landing() {
 
             {userType && <LoginForm userType={userType} setUserType={setUserType}/>}
         </div>
-        
     )
 }
 

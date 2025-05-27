@@ -4,20 +4,21 @@ from flask import Blueprint, render_template, jsonify, request, session
 
 customer = Blueprint("customer", __name__, template_folder="templates")
 
-@customer.route("/homepage/customer/<user>")
-def homepage(user):
-    full_name = session["user"]["first_name"] + " " + session["user"]["last_name"]
-    account_number = session["user"]["account_number"]
-    balance = session["user"]["balance"]
+@customer.route("/api/user_info", methods=["GET"])
+def user_info():
+    if "user" not in session:
+        print("User not logged in")
+        return jsonify({"error": "User not logged in"}), 401
 
-    return render_template("home_page.html", full_name=full_name, acc_num=account_number, balance=balance)
-
-
-@customer.route("/homepage/<user>/deposit")
-def deposit(user):
-    return render_template("deposit.html")
-
-
-@customer.route("/homepage/<user>/use_atm")
-def use_atm(user):
-    return render_template("use_atm.html")
+    user = session["user"]
+    user_info = {
+        "first_name": user["first_name"],
+        "last_name": user["last_name"],
+        "birthdate": user["birthdate"],
+        "monthly_salary": user["monthly_salary"],
+        "account_number": user["account_number"],
+        "balance": user["balance"]
+    }
+    print("User info:", user_info)
+    print("Sent user info to client")
+    return jsonify(user_info), 200

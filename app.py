@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, render_template, request, redirect, Response, session
+from flask_cors import CORS
 import secrets
 
 from blueprints import customer, login_routes, signup_routes
@@ -8,7 +9,9 @@ class FlaskApp():
     def __init__(self):
         
         self.app = Flask(__name__)
+        CORS(self.app, supports_credentials=True)
 
+        
         # Register blueprints
         for blueprint in [customer, login_routes, signup_routes]:
             self.app.register_blueprint(blueprint)
