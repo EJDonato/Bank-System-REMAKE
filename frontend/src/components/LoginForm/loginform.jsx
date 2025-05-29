@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom"
 
 import Button from "../Button/button";
 
-import {login} from "../../services/login.js";
-
 import "./loginform.css";
 
 
@@ -15,18 +13,40 @@ function LoginForm({userType, setUserType}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const initlogin = async (e) => {
-        e.preventDefault();
-        const success = await login(email, password, userType)
-        if (success) {
-            // Redirect to homepage with userType and email
-            navigate(success)
-        } else {
-            const errorMsg = document.getElementById('errorMsg');
-            errorMsg.style.display = 'block'; // Show the error message
-            errorMsg.textContent = "Login Failed"; // Display the error message
-        }
+    const login = async (e) => {
+        e.preventDefault(); // Prevent the default form submission
+
+        const loginForm = new FormData()
+        loginForm.append('email', email);
+        loginForm.append('password', password);
+        loginForm.append('userType', userType.toLowerCase());
+
+        console.log("Login Form Data:", Object.fromEntries(loginForm.entries()));
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/api/login_info', {
+            method: 'POST',
+            body: loginForm,
+            credentials: 'include' // Include cookies for session management
+        });
+            if (!response.ok) {
+                // Handle HTTP error response
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Login failed");
+            }
+
+            const data = await response.json();
+            const redirect_url = data.redirect_url;
+            console.log("Redirecting to:", redirect_url);
+
+            navigate(redirect_url); // Use navigate to redirect
+        } catch (error) {
+            console.error("Login error:", error.message);
+            const errorMsg = document.getElementById("errorMsg");
+            errorMsg.textContent = error.message; // Show error message to user
+            errorMsg.style.display = "block"; // Make the error message visible
     }
+  }
 
     return (
      <div className="customer-box" id="customerBox">
@@ -35,7 +55,7 @@ function LoginForm({userType, setUserType}) {
           <div className="top" id="btns">
             <h2>{userType}</h2>
           </div>
-          <form id="loginForm" onSubmit={initlogin}>
+          <form id="loginForm" onSubmit={login}>
             <div className="two-forms">
               <div className="input-box">
                 <input
@@ -86,6 +106,6 @@ function LoginForm({userType, setUserType}) {
       </div>
     </div>
   );
-}
-
+};
+    
 export default LoginForm;

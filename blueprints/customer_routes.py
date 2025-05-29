@@ -8,9 +8,11 @@ customer = Blueprint("customer", __name__, template_folder="templates")
 def user_info():
     if "user" not in session:
         print("User not logged in")
+        print(session)
         return jsonify({"error": "User not logged in"}), 401
 
     user = session["user"]
+    print(user)
     user_info = {
         "first_name": user["first_name"],
         "last_name": user["last_name"],
@@ -21,4 +23,6 @@ def user_info():
     }
     print("User info:", user_info)
     print("Sent user info to client")
-    return jsonify(user_info), 200
+
+    response = jsonify(user_info)
+    return response, 200

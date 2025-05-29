@@ -7,7 +7,7 @@ from backend import CustomerFacade
 login_routes = Blueprint("login_routes", __name__, template_folder="templates")
 
 # Route for handling login information
-@login_routes.route("/login_info", methods=["POST"])
+@login_routes.route("/api/login_info", methods=["POST"])
 def login():
     data = request.form
     email = data.get("email")
@@ -29,5 +29,6 @@ def login():
         pass
     else: # means acc is active
         session["user"] = user_info
+        print(session)
         print("User is now in session")
         return jsonify({"redirect_url": f"/homepage/{user_type}/{user_info['first_name'] + '-' + user_info['last_name']}"}), 200
