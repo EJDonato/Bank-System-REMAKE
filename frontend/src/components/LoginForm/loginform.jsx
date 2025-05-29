@@ -7,11 +7,16 @@ import "./loginform.css";
 
 
 
-function LoginForm({userType, setUserType}) {
+function LoginForm({userType, setUserType, setSigningup}) {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const gotosignup = () => {
+      console.log("GO TO SIGNUPPP")
+      setSigningup(prev => !prev)
+    }
 
     const login = async (e) => {
         e.preventDefault(); // Prevent the default form submission
@@ -96,7 +101,7 @@ function LoginForm({userType, setUserType}) {
               </div>
               <div className="top">
                 <span>
-                  No account? <a href="#" id="signUp_a">Sign up</a>
+                  No account? <Button type={"button"} text={"Sign Up"} className={"signupA"} onClick={gotosignup} />
                 </span>
               </div>
             </div>

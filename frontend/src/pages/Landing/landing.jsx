@@ -3,6 +3,7 @@ import { useState } from "react"
 import Navbar from "../../components/Navbar/navbar"
 import Button from "../../components/Button/button"
 import LoginForm from "../../components/LoginForm/loginform"  
+import SignupForm from "../../components/SignupForm/signupform"
 
 import "./landing.css"
 
@@ -10,6 +11,7 @@ import "./landing.css"
 
 function Landing() {
     const [userType, setUserType] = useState("");
+    const [signingup, setSigningup] = useState(false);
 
     const showLoginForm = (type) => setUserType(userType => type);
 
@@ -25,7 +27,9 @@ function Landing() {
                 </div>
             }
 
-            {userType && <LoginForm userType={userType} setUserType={setUserType}/>}
+            {userType && !signingup && <LoginForm userType={userType} setUserType={setUserType} setSigningup={setSigningup}/>}
+            {userType && signingup && <SignupForm userType={userType} setUserType={setUserType} setSigningup={setSigningup}/>}
+
         </div>
     )
 }
