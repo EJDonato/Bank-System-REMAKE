@@ -7,6 +7,14 @@ import "./signupform.css";
 
 
 function SignupForm({userType, setUserType, setSigningup}) {
+    const [firsName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [bdate, setBdate] = useState("")
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [repassword, setRepassword] = useState("")
+
 
     const goback = () => {
       console.log("GOO BAACKKK")
@@ -15,6 +23,8 @@ function SignupForm({userType, setUserType, setSigningup}) {
 
     const signup = async (e) => {
         console.log("Signing up")
+
+        const signupform = new FormData()
     }
 
     return (
@@ -27,39 +37,48 @@ function SignupForm({userType, setUserType, setSigningup}) {
                         <div class="forms">
                                 <div class="form-field">
                                     <label htmlFor="first-name">First Name</label>
-                                    <input type="text" id="firstName" placeholder="First Name" required name="firstName" />
+                                    <input type="text" id="firstName" placeholder="First Name" required name="firstName" 
+                                    value={firstName}/>
                                 </div>
                                 <div class="form-field">
                                     <label htmlFor="last-name">Last Name</label>
-                                    <input type="text" id="lastName" placeholder="Last Name" required name="lastName" />
+                                    <input type="text" id="lastName" placeholder="Last Name" required name="lastName" 
+                                    value={lastName}/>
                                 </div>
                                 <div class="form-field">
                                     <label htmlFor="bdate">Birthdate</label>
-                                    <input type="date" id="bdate" required name="bdate" />
+                                    <input type="date" id="bdate" required name="bdate" 
+                                    value={bdate}/>
                                 </div>
                                 <div class="form-field">
                                     <label htmlFor="email">Email</label>
-                                    <input type="text" id="email" placeholder="email@gmail.com" required name="email" />
+                                    <input type="text" id="email" placeholder="email@gmail.com" required name="email" 
+                                    value={email}/>
                                 </div>
                                 <div class="form-field">
                                     <label htmlFor="password">Password</label>
-                                    <input type="password" id="password" placeholder="Password" required name="password" />
+                                    <input type="password" id="password" placeholder="Password" required name="password" 
+                                    value={password}/>
                                 </div>
                                 <div class="form-field">
                                     <label htmlFor="re-password">Re-enter Password</label>
-                                    <input type="password" id="repassword" placeholder="Re-enter Password" required />
+                                    <input type="password" id="repassword" placeholder="Re-enter Password" required 
+                                    value={repassword}/>
                                 </div>
                                 <div class="form-field">
                                     <label htmlFor="monthly_salary">Monthly Salary</label>
-                                    <input type="number" id="monthlySalary" required name="monthlySalary" />
+                                    <input type="number" id="monthlySalary" required name="monthlySalary" 
+                                    value={monthlySalary}/>
                                 </div>
                                 <div class="form-field">
                                     <label htmlFor="pin">Bank Account Pin</label>
-                                    <input type="number" id="pin" required name="pin" />
+                                    <input type="number" id="pin" required name="pin" 
+                                    value={pin}/>
                                 </div>
                                 <div class="form-field">
                                     <label htmlFor="start_bal">Starting Balance</label>
-                                    <input type="number" id="startBalance" required name="startBalance" />
+                                    <input type="number" id="startBalance" required name="startBalance" 
+                                    value={startBalance}/>
                                 </div>
                         
                         </div>
