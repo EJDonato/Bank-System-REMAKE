@@ -13,6 +13,10 @@ function SignupForm({userType, setUserType, setSigningup}) {
       setSigningup(prev => !prev)
     }
 
+    const signup = async (e) => {
+        console.log("Signing up")
+    }
+
     return (
         <div>
             <h2>Start Your Banking Journey With Us!</h2>
@@ -61,7 +65,7 @@ function SignupForm({userType, setUserType, setSigningup}) {
                         </div>
             
                         <div class="button-container">
-                            <Button text={"Sign Up"} className={"signupBtn"} />
+                            <Button text={"Sign Up"} className={"signupBtn"} onClick={signup}/>
                             <Button text={"Go Back"} className={"signupBtn"} onClick={goback} />
                         </div>
                     </div>
