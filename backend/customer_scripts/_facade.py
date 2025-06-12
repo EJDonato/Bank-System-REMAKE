@@ -33,3 +33,11 @@ class CustomerFacade:
     def check_pin(self, pin, acc_number):
         validate = self.atm.validate_pin(pin, acc_number)
         return validate
+    
+    def update_balance(self, new_bal, acc_num):
+        result = self.atm.update_balance(new_bal, acc_num)
+        return result
+    
+    def fetch_user_data(self, acc_num):
+        result = self.login.fetch_data(acc_num)
+        return result

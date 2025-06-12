@@ -73,3 +73,20 @@
     background-color: grey;
     transform: scale(1.05);
 }
+
+
+.signupA {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: #f30ff7; /* Bootstrap primary link color */
+  text-decoration: underline;
+  font: inherit;
+  cursor: pointer;
+}
+
+.signupA:hover {
+  text-decoration: none;
+  color: #f30ff7; /* Darker hover color */
+}

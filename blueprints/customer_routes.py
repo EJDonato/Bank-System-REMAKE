@@ -11,7 +11,11 @@ def user_info():
         print(session)
         return jsonify({"error": "User not logged in"}), 401
 
-    user = session["user"]
+    facade = CustomerFacade()
+    
+    acc_num = session["user"]["account_number"]
+    user = facade.fetch_user_data(acc_num)
+
     print(user)
     user_info = {
         "first_name": user["first_name"],
@@ -36,6 +40,21 @@ def check_pin():
     facade = CustomerFacade()
 
     success = facade.check_pin(pin, acc_num)
+
+    response = jsonify({"result": success})
+    print(success)
+
+    return response, 200
+
+@customer.route("/api/update_balance", methods=["POST"])
+def update_balance():
+    data = request.form
+    new_bal = data.get("newBalance")
+    acc_num = data.get("accNum")
+
+    facade = CustomerFacade()
+
+    success = facade.update_balance(new_bal, acc_num)
 
     response = jsonify({"result": success})
     print(success)

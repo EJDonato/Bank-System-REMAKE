@@ -11,6 +11,40 @@ db = mysql.connector.connect(
 
 my_cursor = db.cursor()
 
+def fetch_data(acc_num):
+    print("Fetching user data......")
+
+    query = """
+            SELECT first_name, last_name, birthdate, monthly_salary, account_number, balance
+            FROM customer_list
+            WHERE account_number = %s
+            """
+    
+    my_cursor.execute(query, (acc_num, ))
+    user_data = my_cursor.fetchone()
+
+    columns = [column[0] for column in my_cursor.description]
+    result_dict = dict(zip(columns, user_data))
+    return result_dict
+
+def update_balance(new_bal, acc_num):
+    print(f"Updating balance of user {acc_num} into {new_bal}")
+
+    query = """
+            UPDATE customer_list
+            SET balance = %s
+            WHERE account_number = %s
+            """ 
+    
+    try:
+        my_cursor.execute(query, (new_bal, acc_num))
+        db.commit()
+
+        print("Balance Updated Successfully")
+    except Exception as e:
+        print(str(e))
+        
+
 def fetch_pin(acc_num):
     print(acc_num)
     query = """

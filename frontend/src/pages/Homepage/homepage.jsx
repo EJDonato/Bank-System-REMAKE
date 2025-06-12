@@ -11,16 +11,20 @@ function Homepage() {
   const [user, setUser] = useState();
 
   const [isUseAtmPin, setIsUseAtmPin] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const [refetch, setRefetch] = useState(false);
+  const refreshData = () => {
+    setRefetch(prev => !prev)
+  }
 
   const useATM = () => {
     setIsUseAtmPin((prev) => !prev);
-  }
+  };
 
   useEffect(() => {
     fetchUserData();
-  }, []);
+  }, [refetch]);
 
   const fetchUserData = async () => {
     try {
@@ -41,8 +45,7 @@ function Homepage() {
       const errorMsg = document.getElementById("errorMsg");
     }
   };
-      console.log("User logged in is ", user)
-
+  console.log("User logged in is ", user);
 
   return (
     <div>
@@ -72,18 +75,25 @@ function Homepage() {
 
       {!isAuthenticated && (
         <div className="wrapper">
-        <div className="buttons">
-          <Button text={"Transact With Teller"} className={"button"}/>
-          <Button text={"Request Loan"} className={"button"}/>
-          <Button text={"Use ATM"} className={"button"} onClick={useATM}/>
+          <div className="buttons">
+            <Button text={"Transact With Teller"} className={"button"} />
+            <Button text={"Request Loan"} className={"button"} />
+            <Button text={"Use ATM"} className={"button"} onClick={useATM} />
+          </div>
         </div>
-      </div>
       )}
 
-      {isUseAtmPin && <EnterPin useATM={useATM} user={user} setIsAuthenticated={setIsAuthenticated}/>}
-      {isAuthenticated && <ATM setIsAuthenticated={setIsAuthenticated}/>}
+      {isUseAtmPin && (
+        <EnterPin
+          useATM={useATM}
+          user={user}
+          setIsAuthenticated={setIsAuthenticated}
+        />
+      )}
+      {isAuthenticated && (
+        <ATM setIsAuthenticated={setIsAuthenticated} user={user} refetch={refreshData}/>
+      )}
     </div>
-
   );
 }
 
