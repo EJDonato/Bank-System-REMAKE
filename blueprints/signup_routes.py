@@ -7,7 +7,7 @@ from backend import CustomerFacade
 signup_routes = Blueprint("signup_routes", __name__, template_folder="templates")
 
 # Route for handling sign-up information 
-@signup_routes.route("/sign_up_info", methods=["POST"])
+@signup_routes.route("/api/sign_up_info", methods=["POST"])
 def sign_up_info():
     data = request.form
 
@@ -20,6 +20,10 @@ def sign_up_info():
     bank_account_pin = data.get("pin")
     start_balance = data.get("startBalance")
     user_type = data.get("userType")
+
+    print("== Received form data ==")
+    print(f"{first_name=}, {last_name=}, {email=}, {password=}")
+    print(f"{birthdate=}, {monthly_salary=}, {bank_account_pin=}, {start_balance=}, {user_type=}")
 
     facade = CustomerFacade()
 
