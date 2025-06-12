@@ -5,7 +5,7 @@ from datetime import date
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="admin",
+    passwd="Htyc3v4d3v4d",
     database="bank_system"
 )
 
@@ -49,18 +49,21 @@ def verify_login_credentials(email, password, user_type):
     query = """
             SELECT  
                 ul.account_number, 
-                ul.email,
-                ul.user_type,
-                ul.status,
-                cl.first_name,
-                cl.last_name,
-                cl.birthdate,
-                cl.bank_account_pin,
-                cl.monthly_salary,
-                cl.balance
+                email,
+                user_type,
+                status,
+                first_name,
+                last_name,
+                birthdate,
+                bank_account_pin,
+                monthly_salary,
+                balance
             FROM user_login ul
-            LEFT JOIN customer_list cl ON ul.account_number = cl.account_number
-            WHERE ul.email = %s AND ul.password = %s AND ul.user_type = %s
+            INNER JOIN customer_list cl 
+                USING(account_number)
+            WHERE ul.email = %s 
+                AND ul.password = %s 
+                AND ul.user_type = %s
             """
     my_cursor.execute(query, (email, password, user_type))
     result = my_cursor.fetchone()
@@ -79,35 +82,24 @@ def verify_login_credentials(email, password, user_type):
 
     return result_dict  # returns user else none
 
-
-def customer_list():
+def authenticate(account_number, pin): # receives pin and account number and authenticates if pin matches pin connected to account number
     query = '''
-    INSERT INTO customer_list(
-        index_id,
-        first_name,
-        last_name,
-        birthdate,
-        monthly_salary,
-        account_number,
-        bank_account_pin,
-        balance,
-        loan_balance,
-        is_locked)
-    SELECT 
-        cac.index_id, 
-        cac.first_name, 
-        cac.last_name, 
-        cac.birthdate, 
-        cac.monthly_salary, 
-        ul.account_number, 
-        cac.bank_account_pin, 
-        cac.balance, 
-        0 AS loan_balance, 
-        FALSE AS is_locked
-    FROM 
-        customer_account_creation cac
-    INNER JOIN user_login ul ON cac.email = ul.email
-    LEFT JOIN customer_list cl ON cac.index_id = cl.index_id;
-'''
-    my_cursor.execute(query)
+        SELECT * 
+        FROM customer_list 
+        WHERE account_number = %s 
+            AND bank_account_pin = %s'''
+    my_cursor.execute(query, (account_number, pin))
+    result = my_cursor.fetchone()
+    if result is None:
+        return False
+    
+    return True
+
+def update_balance(new_balance, account_number):
+    query = '''
+        UPDATE customer_list 
+        SET balance = %s 
+        WHERE account_number = %s'''
+    my_cursor.execute(query, (new_balance, account_number))
     db.commit()
+    
