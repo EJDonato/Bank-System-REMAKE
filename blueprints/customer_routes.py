@@ -1,4 +1,4 @@
-
+from backend import CustomerFacade
 from flask import Blueprint, render_template, jsonify, request, session
 
 
@@ -25,4 +25,19 @@ def user_info():
     print("Sent user info to client")
 
     response = jsonify(user_info)
+    return response, 200
+
+@customer.route("/api/check_pin", methods=["POST"])
+def check_pin():
+    data = request.form
+    pin = data.get("pin")
+    acc_num = data.get("acc_num")
+
+    facade = CustomerFacade()
+
+    success = facade.check_pin(pin, acc_num)
+
+    response = jsonify({"result": success})
+    print(success)
+
     return response, 200

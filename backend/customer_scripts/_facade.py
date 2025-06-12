@@ -1,6 +1,7 @@
 from .sign_up import Signup
 from .log_in import Login
 from .bank_account import BankAccount
+from .use_atm import UseATM
 
 class CustomerFacade:
     def __init__(self):
@@ -8,6 +9,8 @@ class CustomerFacade:
 
         self.signup = Signup()
         self.login = Login()
+        self.atm = UseATM()
+        
 
     def sign_up(self, email, password, first_name, last_name, birthdate, pin, monthly_salary, initial_balance, user_type):
         self.bank_account = BankAccount(email, password, first_name, last_name, birthdate, pin, monthly_salary, initial_balance)
@@ -25,3 +28,8 @@ class CustomerFacade:
     def log_in(self, email, password, user_type):
         get_user_info = self.login.check_account(email, password, user_type)
         return get_user_info  # returns user else none
+    
+
+    def check_pin(self, pin, acc_number):
+        validate = self.atm.validate_pin(pin, acc_number)
+        return validate

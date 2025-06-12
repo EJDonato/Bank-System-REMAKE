@@ -3,9 +3,20 @@ import { useState, useEffect } from "react";
 import "./homepage.css";
 
 import Navbar from "../../components/Navbar/navbar";
+import EnterPin from "../../components/EnterPin/enterpin";
+import Button from "../../components/Button/button";
+import ATM from "../../components/ATM/atm";
 
 function Homepage() {
   const [user, setUser] = useState();
+
+  const [isUseAtmPin, setIsUseAtmPin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+
+  const useATM = () => {
+    setIsUseAtmPin((prev) => !prev);
+  }
 
   useEffect(() => {
     fetchUserData();
@@ -30,6 +41,8 @@ function Homepage() {
       const errorMsg = document.getElementById("errorMsg");
     }
   };
+      console.log("User logged in is ", user)
+
 
   return (
     <div>
@@ -57,14 +70,20 @@ function Homepage() {
         </div>
       )}
 
-      <div className="wrapper">
+      {!isAuthenticated && (
+        <div className="wrapper">
         <div className="buttons">
-          <button>Transact With Teller</button>
-          <button>Request Loan</button>
-          <button>Use ATM</button>
+          <Button text={"Transact With Teller"} className={"button"}/>
+          <Button text={"Request Loan"} className={"button"}/>
+          <Button text={"Use ATM"} className={"button"} onClick={useATM}/>
         </div>
       </div>
+      )}
+
+      {isUseAtmPin && <EnterPin useATM={useATM} user={user} setIsAuthenticated={setIsAuthenticated}/>}
+      {isAuthenticated && <ATM setIsAuthenticated={setIsAuthenticated}/>}
     </div>
+
   );
 }
 

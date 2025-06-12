@@ -11,6 +11,18 @@ db = mysql.connector.connect(
 
 my_cursor = db.cursor()
 
+def fetch_pin(acc_num):
+    print(acc_num)
+    query = """
+            SELECT bank_account_pin FROM customer_list
+            WHERE account_number = %s
+            """
+    my_cursor.execute(query, (acc_num, ))
+    correct_pin = my_cursor.fetchone()
+    if correct_pin:
+        return correct_pin[0]
+    else:
+        return None 
 
 def insert_account_info(gen_info, login_info):
     query_1 = '''
